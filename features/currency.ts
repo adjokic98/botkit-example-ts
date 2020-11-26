@@ -8,10 +8,10 @@ var dict = {
 	"din": "rsd",
 	"euros": "eur"
 };
-declare var lastmsg: string;
-declare var amount: any;
-declare var from: string;
-declare var to: string;
+var lastmsg: string;
+var amount: any;
+var from: string;
+var to: string;
 
 module.exports = function(controller:any) {
 	const missing1currency = new BotkitConversation('mc1', controller);
@@ -56,6 +56,7 @@ module.exports = function(controller:any) {
 	});
 
 	controller.hears([new RegExp("/^\d*\.?\d*/"), new RegExp(currencies.join("|")), new RegExp(Object.keys(dict).join("|"))],'message', async (bot, message) => {
+		console.log(message['text']);
 		lastmsg = message["text"];
 		let matched = lastmsg.match(new RegExp(/[0-9]+([,.][0-9]+)?/g));
 		const amount = matched?.length ? matched[0] : "20";
