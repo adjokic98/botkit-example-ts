@@ -19,20 +19,20 @@ module.exports = function(controller:any) {
 	controller.addDialog(missing1currency);
 	controller.afterDialog(missing1currency, async(bot:any, results:any) => {
 		console.log("IN DIALOG 1");
-		console.log("from ", from);
-		
-		to = results.onecur;
-		for (var key in dict) {
-			if (to.includes(key)){
-				to = to.replace(key, dict[key]);
+		if((currencies.includes(results.onecur)) || (Object.keys(dict).includes(results.onecur))){
+			console.log("currency is valid");
+			to = results.onecur;
+			for (var key in dict) {
+				if (to.includes(key)) {
+					to = to.replace(key, dict[key]);
+				}
 			}
+			var rezultat = await convert(amount, from, to);
+			await sayResults(bot,rezultat);
+		} else { 
+			bot.say("Invalid currency, please enter the amount and both currencies again.");
+			return;
 		}
-		console.log("amount from to ", amount, from, to );
-
-		var result = await convert(amount, from, to);
-		var res = result.result.value;
-		var date = result.result.date;
-		bot.say("The result of converting  for date " + date + " - " + amount + from.toUpperCase() + " is " + res + to.toUpperCase());
 	});
 
 	const missing2currency = new BotkitConversation('mc2', controller);
@@ -52,9 +52,7 @@ module.exports = function(controller:any) {
 		from = words[0];
 		to = words[1];
 		var result = await convert(amount, from, to);
-		var res = result.result.value;
-		var date = result.result.date;
-		bot.say("The result of converting for date " + date + " - " + amount + from.toUpperCase() + " is " + res + to.toUpperCase());
+		sayResults(bot, result);
 	});
 
 	controller.hears([new RegExp("/^\d*\.?\d*/"), new RegExp(currencies.join("|")), new RegExp(Object.keys(dict).join("|"))],'message', async (bot, message) => {
@@ -84,9 +82,7 @@ module.exports = function(controller:any) {
 			var toIndex = words.indexOf("to")
 			to = words[toIndex+1];
 			var result = await convert(amount, from, to);
-			var res = result.result.value;
-			var date = result.result.date;
-			bot.say("The result of converting for date " + date + " - " + amount + from.toUpperCase() + " is " + res + to.toUpperCase());
+			sayResults(bot, result);
 		} else {
 			bot.say("Please provide only two currencies!");
 		}
@@ -101,5 +97,14 @@ async function convert(amount:string, from:string, to:string){
 		return data;
 	} catch (error) {
 		console.error(error);
+	}
+}
+function sayResults(bot:any, rezultat:any) {
+	if (rezultat.result.value != undefined){
+		var res = rezultat.result.value;
+		var date = rezultat.result.date;
+		bot.say("The result of converting for date " + date + " is <br> " + amount + from.toUpperCase() + " ---- " + res + to.toUpperCase());
+	} else {
+		bot.say(rezultat);
 	}
 }

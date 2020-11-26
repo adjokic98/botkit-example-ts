@@ -51,26 +51,30 @@ module.exports = function (controller) {
     missing1currency.ask('Could u provide the other currency please?', [], 'onecur');
     controller.addDialog(missing1currency);
     controller.afterDialog(missing1currency, function (bot, results) { return __awaiter(_this, void 0, void 0, function () {
-        var key, result, res, date;
+        var key, rezultat;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     console.log("IN DIALOG 1");
-                    console.log("from ", from);
+                    if (!((currencies.includes(results.onecur)) || (Object.keys(dict).includes(results.onecur)))) return [3 /*break*/, 3];
+                    console.log("currency is valid");
                     to = results.onecur;
                     for (key in dict) {
                         if (to.includes(key)) {
                             to = to.replace(key, dict[key]);
                         }
                     }
-                    console.log("amount from to ", amount, from, to);
                     return [4 /*yield*/, convert(amount, from, to)];
                 case 1:
-                    result = _a.sent();
-                    res = result.result.value;
-                    date = result.result.date;
-                    bot.say("The result of converting  for date " + date + " - " + amount + from.toUpperCase() + " is " + res + to.toUpperCase());
+                    rezultat = _a.sent();
+                    return [4 /*yield*/, sayResults(bot, rezultat)];
+                case 2:
+                    _a.sent();
+                    return [3 /*break*/, 4];
+                case 3:
+                    bot.say("Invalid currency, please enter the amount and both currencies again.");
                     return [2 /*return*/];
+                case 4: return [2 /*return*/];
             }
         });
     }); });
@@ -78,7 +82,7 @@ module.exports = function (controller) {
     missing2currency.ask('Provide both currencies please separated by a space.', [], 'twocur');
     controller.addDialog(missing2currency);
     controller.afterDialog(missing2currency, function (bot, results) { return __awaiter(_this, void 0, void 0, function () {
-        var words, key, result, res, date;
+        var words, key, result;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -97,15 +101,13 @@ module.exports = function (controller) {
                     return [4 /*yield*/, convert(amount, from, to)];
                 case 1:
                     result = _a.sent();
-                    res = result.result.value;
-                    date = result.result.date;
-                    bot.say("The result of converting for date " + date + " - " + amount + from.toUpperCase() + " is " + res + to.toUpperCase());
+                    sayResults(bot, result);
                     return [2 /*return*/];
             }
         });
     }); });
     controller.hears([new RegExp("/^\d*\.?\d*/"), new RegExp(currencies.join("|")), new RegExp(Object.keys(dict).join("|"))], 'message', function (bot, message) { return __awaiter(_this, void 0, void 0, function () {
-        var matched, amount, key, words, numofcurs, adx, toIndex, result, res, date;
+        var matched, amount, key, words, numofcurs, adx, toIndex, result;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -139,9 +141,7 @@ module.exports = function (controller) {
                     return [4 /*yield*/, convert(amount, from, to)];
                 case 3:
                     result = _a.sent();
-                    res = result.result.value;
-                    date = result.result.date;
-                    bot.say("The result of converting for date " + date + " - " + amount + from.toUpperCase() + " is " + res + to.toUpperCase());
+                    sayResults(bot, result);
                     return [3 /*break*/, 5];
                 case 4:
                     bot.say("Please provide only two currencies!");
@@ -176,5 +176,15 @@ function convert(amount, from, to) {
             }
         });
     });
+}
+function sayResults(bot, rezultat) {
+    if (rezultat.result.value != undefined) {
+        var res = rezultat.result.value;
+        var date = rezultat.result.date;
+        bot.say("The result of converting for date " + date + " is <br> " + amount + from.toUpperCase() + " ---- " + res + to.toUpperCase());
+    }
+    else {
+        bot.say(rezultat);
+    }
 }
 //# sourceMappingURL=currency.js.map
