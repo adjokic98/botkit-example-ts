@@ -112,7 +112,7 @@ module.exports = function (controller) {
         });
     }); });
     controller.hears([new RegExp("/^\d*\.?\d*/"), new RegExp(currencies.join("|")), new RegExp(Object.keys(dict).join("|"))], 'message', function (bot, message) { return __awaiter(_this, void 0, void 0, function () {
-        var matched, amount, key, words, numofcurs, adx, toIndex, result;
+        var matched, key, words, numofcurs, adx, toIndex, result;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:

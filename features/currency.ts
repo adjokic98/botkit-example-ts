@@ -62,7 +62,7 @@ module.exports = function(controller:any) {
 		lastmsg = message["text"];
 		console.log("LAST MSG POSLE", lastmsg);
 		let matched = lastmsg.match(new RegExp(/[0-9]+([,.][0-9]+)?/g));
-		const amount = matched?.length ? matched[0] : "20";
+		amount = matched?.length ? matched[0] : "20";
 		// convert 20 eur to usd
 		for (var key in dict) {
 			if (lastmsg.includes(key)){
