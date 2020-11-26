@@ -47,8 +47,6 @@ if (process.env.CMS_URI) {
         token: process.env.CMS_TOKEN,
     }));
 }
-var index = path.join(__dirname, 'features');
-controller.loadModules(index);
 // once the bot has booted up its internal services, you can use them to do stuff.
 controller.ready(function () {
     console.log("ready");

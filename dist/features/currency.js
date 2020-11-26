@@ -45,6 +45,10 @@ var dict = {
     "din": "rsd",
     "euros": "eur"
 };
+var lastmsg = "";
+var amount;
+var from;
+var to;
 module.exports = function (controller) {
     var _this = this;
     var missing1currency = new botkit_1.BotkitConversation('mc1', controller);
@@ -111,7 +115,10 @@ module.exports = function (controller) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    console.log("PORUKA ", message['text']);
+                    console.log("LAST MSG PRE ", lastmsg);
                     lastmsg = message["text"];
+                    console.log("LAST MSG POSLE", lastmsg);
                     matched = lastmsg.match(new RegExp(/[0-9]+([,.][0-9]+)?/g));
                     amount = (matched === null || matched === void 0 ? void 0 : matched.length) ? matched[0] : "20";
                     // convert 20 eur to usd
