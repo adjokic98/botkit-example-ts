@@ -30,14 +30,14 @@ if (process.env.CMS_URI) {
         token: process.env.CMS_TOKEN,
     }));
 }
-
+const index = path.join(__dirname, 'features');
+controller.loadModules(index);
 // once the bot has booted up its internal services, you can use them to do stuff.
 controller.ready(() => {
 	console.log("ready");
     // load traditional developer-created local custom feature modules
-    const index = path.join(__dirname, '..', 'features');
+    const index = path.join(__dirname, 'features');
     controller.loadModules(index);
-    console.log(__dirname + '/features');
     /* catch-all that uses the CMS to trigger dialogs */
 
 });
