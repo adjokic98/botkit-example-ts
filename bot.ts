@@ -1,13 +1,11 @@
-import { Botkit } from 'botkit';
+const { Botkit } = require('botkit');
 const { BotkitCMSHelper } = require('botkit-plugin-cms');
-const fetch = require("node-fetch");
-const express = require('express');
-import * as path from 'path';
-const { BotkitConversation } = require("botkit");
 const { WebAdapter } = require('botbuilder-adapter-web');
-
 const { MongoDbStorage } = require('botbuilder-storage-mongodb');
-
+const fetch = require("node-fetch");
+import * as path from 'path';
+const express = require('express');
+const { BotkitConversation } = require("botkit");
 // load process.env values from .env file
 require('dotenv').config();
 
@@ -17,26 +15,28 @@ if (process.env.mongo_uri) {
 		url : process.env.mongo_uri,
 	});
 }
-
 const adapter = new WebAdapter({});
+const controller = new Botkit({
+    webhook_uri: '/api/messages',
 
-const controller = new Botkit({ webhook_uri: '/api/messages', adapter: adapter});
+    adapter: adapter,
 
-if (process.env.cms_uri) {
-	controller.usePlugin(new BotkitCMSHelper({
-		uri: process.env.cms_uri,
-		token: process.env.cms_token,
-	}));
+    storage
+});
+
+if (process.env.CMS_URI) {
+    controller.usePlugin(new BotkitCMSHelper({
+        uri: process.env.CMS_URI,
+        token: process.env.CMS_TOKEN,
+    }));
 }
 
 // once the bot has booted up its internal services, you can use them to do stuff.
 controller.ready(() => {
-
+	console.log("ready");
     // load traditional developer-created local custom feature modules
     controller.loadModules(__dirname + '/features');
+    console.log(__dirname + '/features');
     /* catch-all that uses the CMS to trigger dialogs */
-    if (controller.plugins.cms) {
-        console.log("dfjhdskjfhds");
-    }
 
 });
