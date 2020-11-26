@@ -35,7 +35,8 @@ if (process.env.CMS_URI) {
 controller.ready(() => {
 	console.log("ready");
     // load traditional developer-created local custom feature modules
-    controller.loadModules(__dirname + '/features');
+    const index = path.join(__dirname, 'features');
+    controller.loadModules(index);
     console.log(__dirname + '/features');
     /* catch-all that uses the CMS to trigger dialogs */
 
