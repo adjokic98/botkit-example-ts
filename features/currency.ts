@@ -59,8 +59,8 @@ module.exports = function(controller:any) {
 
 	controller.hears([new RegExp("/^\d*\.?\d*/"), new RegExp(currencies.join("|")), new RegExp(Object.keys(dict).join("|"))],'message', async (bot, message) => {
 		lastmsg = message["text"];
-
-		amount = lastmsg.match(new RegExp(/[0-9]+([,.][0-9]+)?/g))[0];
+		let matched = lastmsg.match(new RegExp(/[0-9]+([,.][0-9]+)?/g));
+		const amount = matched?.length ? matched[0] : "20";
 		// convert 20 eur to usd
 		for (var key in dict) {
 			if (lastmsg.includes(key)){

@@ -1,0 +1,26 @@
+{
+  "name": "botkit-gigabot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node dist/bot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@types/es6-promise": "^3.3.0",
+    "axios": "^0.21.0",
+    "botbuilder-adapter-web": "^1.0.9",
+    "botbuilder-storage-mongodb": "^0.9.5",
+    "botkit": "^4.10.0",
+    "botkit-plugin-cms": "^1.0.3",
+    "dotenv": "^7.0.0",
+    "express": "^4.17.1",
+    "filereader": "^0.10.3",
+    "jquery": "^3.5.1",
+    "js-to-ts": "^1.0.13",
+    "node-fetch": "^2.6.1",
+    "ts-migrate": "^0.1.10",
+    "xmlhttprequest": "^1.8.0"
+  }
+}
