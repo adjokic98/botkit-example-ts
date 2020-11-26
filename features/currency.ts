@@ -1,6 +1,7 @@
 import { BotkitConversation } from 'botkit';
-var axios = require('axios');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+const fetch = require("node-fetch");
+const { Botkit } = require('botkit');
 
 var currencies = ["bam","eur","usd","rsd"];
 var dict = {

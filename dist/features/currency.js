@@ -37,8 +37,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var botkit_1 = require("botkit");
-var axios = require('axios');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+var fetch = require("node-fetch");
+var Botkit = require('botkit').Botkit;
 var currencies = ["bam", "eur", "usd", "rsd"];
 var dict = {
     "km": "bam",
