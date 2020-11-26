@@ -8,7 +8,7 @@ var dict = {
 	"din": "rsd",
 	"euros": "eur"
 };
-var lastmsg: string;
+var lastmsg = "";
 var amount: any;
 var from: string;
 var to: string;
@@ -56,8 +56,10 @@ module.exports = function(controller:any) {
 	});
 
 	controller.hears([new RegExp("/^\d*\.?\d*/"), new RegExp(currencies.join("|")), new RegExp(Object.keys(dict).join("|"))],'message', async (bot, message) => {
-		console.log(message['text']);
+		console.log("PORUKA ",message['text']);
+		console.log("LAST MSG PRE ", lastmsg);
 		lastmsg = message["text"];
+		console.log("LAST MSG POSLE", lastmsg);
 		let matched = lastmsg.match(new RegExp(/[0-9]+([,.][0-9]+)?/g));
 		const amount = matched?.length ? matched[0] : "20";
 		// convert 20 eur to usd
