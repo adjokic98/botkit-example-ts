@@ -2,7 +2,6 @@ const { Botkit } = require('botkit');
 const { BotkitCMSHelper } = require('botkit-plugin-cms');
 const { WebAdapter } = require('botbuilder-adapter-web');
 const { MongoDbStorage } = require('botbuilder-storage-mongodb');
-const fetch = require("node-fetch");
 import * as path from 'path';
 const express = require('express');
 const { BotkitConversation } = require("botkit");
@@ -31,6 +30,7 @@ if (process.env.CMS_URI) {
     }));
 }
 // once the bot has booted up its internal services, you can use them to do stuff.
+
 controller.ready(() => {
 	console.log("ready");
     // load traditional developer-created local custom feature modules

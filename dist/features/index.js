@@ -106,5 +106,25 @@ module.exports = function (controller) {
             }
         });
     }); });
+    controller.on('hello', function (bot, message) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, bot.say('Hi, if you need help, type \"-help\"!')];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    controller.hears('-help', 'message', function (bot, message) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, bot.say("If you want the bot to ask you about plans in your day, tell him anything including the word \"plan\" <br> If you want information about anything, tell the bot \"find _____ using wa\" .<br> If you want to convert between currencies, include the amount and starting and ending currency. <br> We currently support only BAM, RSD, USD and EUR.")];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
 };
 //# sourceMappingURL=index.js.map

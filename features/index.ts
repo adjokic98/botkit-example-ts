@@ -39,4 +39,10 @@ module.exports = function(controller:Botkit) {
     controller.hears('plan','message', async (bot, message) => {
         await bot.beginDialog('planner');
     });
+    controller.on('hello', async(bot, message) => {
+    await bot.say('Hi, if you need help, type \"-help\"!');
+});
+    controller.hears('-help','message', async (bot, message) => {
+        await bot.say("If you want the bot to ask you about plans in your day, tell him anything including the word \"plan\" <br> If you want information about anything, tell the bot \"find _____ using wa\" .<br> If you want to convert between currencies, include the amount and starting and ending currency. <br> We currently support only BAM, RSD, USD and EUR.");
+    });
 }
